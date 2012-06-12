@@ -12,6 +12,7 @@ gem 'sqlite3'
 # in production environments by default.
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'compass-rails'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'slim-rails',      '0.2.1'
 
