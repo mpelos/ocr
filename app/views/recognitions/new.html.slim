@@ -1,0 +1,13 @@
+= form_tag recognitions_path, :multipart => true do
+  #image_container
+    - if params[:image].present?
+      = image_tag "filtered", :class => :image
+
+    - else
+      = label_tag :'image[file]', :class => "image" do
+        p.microcopy Clique para inserir uma imagem
+
+      = file_field_tag :'image[file]'
+
+  - if params[:image].present?
+    .scales

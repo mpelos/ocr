@@ -1,4 +1,7 @@
 Ocr::Application.routes.draw do
+  resources :recognitions, :only => [:index, :new, :create]
+
+  root :to => "recognitions#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
