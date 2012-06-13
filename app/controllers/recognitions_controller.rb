@@ -1,6 +1,6 @@
 class RecognitionsController < ApplicationController
   def create
-    original_image_path = "#{Rails.root}/app/assets/images/image"
+    original_image_path = "#{Rails.root}/app/assets/images/original"
     saturated_image_path = "#{Rails.root}/app/assets/images/saturated"
     `cp #{params[:image][:file].path} #{original_image_path}` if params[:image][:file].present?
 
