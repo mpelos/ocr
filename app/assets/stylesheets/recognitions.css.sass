@@ -5,10 +5,27 @@ input[type="file"]
   float: left
   width: 800px
   height: 600px
-  margin-right: 63px
+  text-align: center
 
-.image
-  max-width: 800px
+.control
+  display: none
+
+  &.previous
+    float: left
+
+  &.next
+    float: right
+
+.images
+  position: relative
+  margin-top: 10px
+
+  img
+    display: none
+    position: absolute
+    top: 0
+    left: 0
+    width: 800px
 
 label.image
   display: block

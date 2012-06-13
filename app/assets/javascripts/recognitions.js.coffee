@@ -1,3 +1,23 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ($) ->
+  $("#image_file").change ->
+    $("form").submit()
+
+  setTimeout ->
+    $(".original, .next").fadeIn()
+  , 500
+
+  $(".original").live "click", ->
+    $(".saturated").fadeOut()
+    $(".original").fadeIn ->
+      $(".previous").hide()
+      $(".next").show().text("Saturação >>").removeClass("binarize").addClass("saturate")
+
+    return false
+
+  $(".saturate").live "click", ->
+    $(".original").fadeOut()
+    $(".saturated").fadeIn ->
+      $(".previous").show().text("<< Original").addClass("original")
+      $(".next").hide()
+
+    return false

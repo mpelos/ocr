@@ -1,13 +1,15 @@
 = form_tag recognitions_path, :multipart => true do
+  = link_to "", "#", :class => "previous control"
+  = link_to "Saturação >>", "#", :class => "saturate next control"
+
   #image_container
     - if params[:image].present?
-      = image_tag "filtered", :class => :image
+      .images
+        = image_tag "original", :class => :original
+        = image_tag "saturated", :class => :saturated
 
     - else
       = label_tag :'image[file]', :class => "image" do
         p.microcopy Clique para inserir uma imagem
 
       = file_field_tag :'image[file]'
-
-  - if params[:image].present?
-    .scales
