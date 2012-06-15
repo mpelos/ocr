@@ -9,15 +9,23 @@ jQuery ($) ->
   $(".original").live "click", ->
     $(".saturated").fadeOut()
     $(".original").fadeIn ->
-      $(".previous").hide()
-      $(".next").show().text("Saturação >>").removeClass("binarize").addClass("saturate")
-
-    return false
+      $(".control").removeClass("original")
+      $(".previous").hide().attr("class", "previous control")
+      $(".next").show().text("Saturação >>").attr("class", "next control saturate")
+    false
 
   $(".saturate").live "click", ->
-    $(".original").fadeOut()
+    $(".original, .binarized").fadeOut()
     $(".saturated").fadeIn ->
-      $(".previous").show().text("<< Original").addClass("original")
-      $(".next").hide()
+      $(".control").removeClass("saturate")
+      $(".previous").show().text("<< Original").attr("class", "previous control original")
+      $(".next").show().text("Binarizar >>").attr("class", "next control binarize")
+    false
 
-    return false
+  $(".binarize").live "click", ->
+    $(".saturated").fadeOut()
+    $(".binarized").fadeIn ->
+      $(".control").removeClass("binarize")
+      $(".previous").show().text("<< Saturação").attr("class", "previous control saturate")
+      $(".next").hide().attr("class", "next control")
+    false
