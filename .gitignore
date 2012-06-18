@@ -18,3 +18,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore temp images
+/app/assets/images/original
+/app/assets/images/saturated
+/app/assets/images/binarized
