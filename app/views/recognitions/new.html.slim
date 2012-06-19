@@ -1,6 +1,7 @@
 = form_tag recognitions_path, :multipart => true do
-  = link_to "", "#", :class => "previous control"
-  = link_to "Saturação >>", "#", :class => "saturate next control"
+  - if params[:image].present?
+    = link_to "", "#", :class => "previous control"
+    = link_to "Saturação >>", "#", :class => "saturate next control"
 
   #image_container
     - if params[:image].present?
