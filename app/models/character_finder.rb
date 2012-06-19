@@ -40,7 +40,7 @@ class CharacterFinder
     characters_rows.each do |row|
       vertical_projection(:range => (row.y..row.y + row.height)).each_with_index do |projection, index|
         unless projection.zero?
-          rectangle = Rectangle.new(index, row.y, nil, row.height)
+          rectangle = Rectangle.new(index, row.y, nil, row.height) unless rectangle
         else
           if rectangle
             rectangle.width = index - rectangle.x - 1
