@@ -23,9 +23,17 @@ jQuery ($) ->
     false
 
   $(".binarize").live "click", ->
-    $(".saturated").fadeOut()
+    $(".saturated, .highlighted").fadeOut()
     $(".binarized").fadeIn ->
       $(".control").removeClass("binarize")
       $(".previous").show().text("<< Saturação").attr("class", "previous control saturate")
+      $(".next").show().text("Destacar").attr("class", "next control highlight")
+    false
+
+  $(".highlight").live "click", ->
+    $(".highlighted").fadeIn ->
+      $(".binarized").hide()
+      $(".control").removeClass("highlight")
+      $(".previous").show().text("<< Binarizar").attr("class", "previous control binarize")
       $(".next").hide().attr("class", "next control")
     false

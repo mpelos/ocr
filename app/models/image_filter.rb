@@ -60,6 +60,23 @@ class ImageFilter
     end
   end
 
+  def highlight_characters(positions)
+    positions.each do |position|
+      (position.y..position.y + position.height).each_with_index do |y, height_index|
+        (position.x..position.x + position.width).each_with_index do |x, width_index|
+          current = ((y * image.columns) + x) * 3
+          if y == position.y || y == (position.y + position.height) || x == position.x || x == (position.x + position.width)
+            @pixels[current]     = Magick::QuantumRange # red
+            @pixels[current + 1] = 0 # green
+            @pixels[current + 2] = 0 # blue
+          end
+        end
+      end
+    end
+
+    @pixels
+  end
+
   def save_at(path)
     image.import_pixels(0, 0, image.columns, image.rows, "RGB", @pixels)
     image.write(path)
