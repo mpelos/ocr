@@ -34,24 +34,49 @@ class CharacterFinder
   end
 
   def find
-    positions = []
-    rectangle = nil
+    unless @positions
+      @positions = []
+      rectangle = nil
 
-    characters_rows.each do |row|
-      vertical_projection(:range => (row.y..row.y + row.height)).each_with_index do |projection, index|
-        unless projection.zero?
-          rectangle = Rectangle.new(index, row.y, nil, row.height) unless rectangle
-        else
-          if rectangle
-            rectangle.width = index - rectangle.x - 1
-            positions << rectangle
-            rectangle = nil
+      characters_rows.each do |row|
+        vertical_projection(:range => (row.y..row.y + row.height)).each_with_index do |projection, index|
+          unless projection.zero?
+            rectangle = Rectangle.new(index, row.y, nil, row.height) unless rectangle
+          else
+            if rectangle
+              rectangle.width = index - rectangle.x - 1
+              @positions << rectangle
+              rectangle = nil
+            end
           end
         end
       end
     end
 
-    positions
+    @positions
+  end
+
+  def extract_characters_pixel_matrix
+    characters = []
+
+    find.each do |character|
+      matrix = []
+
+      (character.y..character.y + character.height).each do |y|
+        row = []
+
+        (character.x..character.x + character.width).each do |x|
+          current = (y * image.columns) + x
+          row << @pixels[current]
+        end
+
+        matrix << row
+      end
+
+      characters << matrix
+    end
+
+    characters
   end
 
   protected
