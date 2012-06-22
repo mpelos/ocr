@@ -12,9 +12,16 @@ class RecognitionsController < ApplicationController
     image.binarize
     image.save_at(binarized_image_path)
 
-    characters_positions = CharacterFinder.new(binarized_image_path).find
-    image.highlight_characters(characters_positions)
+    character_finder = CharacterFinder.new(binarized_image_path)
+    image.highlight_characters(character_finder.find)
     image.save_at(highlighted_image_path)
+
+    characters = ""
+    character_finder.extract_characters_pixel_matrix.each do |character|
+      characters << " #{CharacterRecognizer.new(character).recognize} "
+    end
+
+    flash[:notice] = characters
 
     render :new
   end

@@ -7,8 +7,9 @@ class LearnController < ApplicationController
       @characters = []
 
       characters_matrix.each_with_index do |character, index|
+        character_recognizer = CharacterRecognizer.new(character)
         @characters[index] = CharacterData.new
-        @characters[index].density(character).each do |density|
+        character_recognizer.density.each do |density|
           @characters[index].quadrants.build(:density => density)
         end
       end

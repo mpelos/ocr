@@ -1,3 +1,5 @@
+p = flash[:notice]
+
 = form_tag recognitions_path, :multipart => true do
   - if params[:image].present?
     = link_to "", "#", :class => "previous control"
