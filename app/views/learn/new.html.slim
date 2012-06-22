@@ -1,0 +1,15 @@
+= form_tag learn_index_path, :multipart => true do
+  - unless params[:image].present?
+    = file_field_tag :'image[file]'
+
+  - else
+    p = "Foram encontrados #{@characters.size} caractéres"
+    - @characters.each_with_index do |character, index|
+      div
+        = "#{index + 1}°"
+        = text_field_tag "characters[#{index}][character]"
+
+        - character.quadrants.each_with_index do |quadrant, quadrant_index|
+          = hidden_field_tag "characters[#{index}][quadrants_attributes][#{quadrant_index}][density]", quadrant.density
+
+    = submit_tag "Salvar"

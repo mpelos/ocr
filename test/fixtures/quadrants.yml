@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  character_data_id: 1
+  density: 1.5
+
+two:
+  character_data_id: 1
+  density: 1.5

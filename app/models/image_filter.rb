@@ -1,7 +1,7 @@
 class ImageFilter
   require "RMagick"
 
-  attr_reader :image
+  attr_reader :image, :pixels
 
   def initialize(file)
     @image = Magick::ImageList.new(file).cur_image
@@ -58,27 +58,29 @@ class ImageFilter
       @saturated, @binarized = false, true
       @pixels = pixels
     end
+
+    assemble_pixels
   end
 
   def highlight_characters(positions)
-    positions.each do |position|
-      (position.y..position.y + position.height).each do |y|
-        (position.x..position.x + position.width).each do |x|
-          current = ((y * image.columns) + x) * 3
-          if y == position.y || y == (position.y + position.height) || x == position.x || x == (position.x + position.width)
-            @pixels[current]     = Magick::QuantumRange # red
-            @pixels[current + 1] = 0 # green
-            @pixels[current + 2] = 0 # blue
+    if binarized?
+      positions.each do |position|
+        (position.y..position.y + position.height).each do |y|
+          (position.x..position.x + position.width).each do |x|
+            current = ((y * image.columns) + x) * 3
+            if y == position.y || y == (position.y + position.height) || x == position.x || x == (position.x + position.width)
+              @pixels[current]     = Magick::QuantumRange # red
+              @pixels[current + 1] = 0 # green
+              @pixels[current + 2] = 0 # blue
+            end
           end
         end
       end
     end
-
-    @pixels
   end
 
   def save_at(path)
-    image.import_pixels(0, 0, image.columns, image.rows, "RGB", @pixels)
+    assemble_pixels
     image.write(path)
   end
 
@@ -95,6 +97,10 @@ class ImageFilter
   end
 
   protected
+
+  def assemble_pixels
+    image.import_pixels(0, 0, image.columns, image.rows, "RGB", @pixels)
+  end
 
   def limit_color(color)
     if color > 65535

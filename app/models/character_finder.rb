@@ -1,8 +1,13 @@
 class CharacterFinder
   attr_reader :image
 
-  def initialize(file)
-    @image = Magick::ImageList.new(file).cur_image
+  def initialize(image)
+    if image.is_a?(String) || image.is_a?(File)
+      @image = Magick::ImageList.new(image).cur_image
+    elsif image.is_a?(Magick::Image)
+      @image = image
+    end
+
     @pixels = @image.export_pixels(0, 0, @image.columns, @image.rows, "R")
   end
 

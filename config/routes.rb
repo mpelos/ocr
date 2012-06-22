@@ -1,4 +1,5 @@
 Ocr::Application.routes.draw do
+  resources :learn,        :only => [:index, :new, :create]
   resources :recognitions, :only => [:index, :new, :create]
 
   root :to => "recognitions#new"
