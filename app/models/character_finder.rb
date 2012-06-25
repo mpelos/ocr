@@ -29,9 +29,11 @@ class CharacterFinder
     starting = options[:range].first * image.columns
     ending = options[:range].last * image.columns
 
-    @pixels[starting..ending].each_slice(image.rows) do |row|
-      row.each_with_index do |color, index|
-        projection[index] += 1 if color == 0
+    if @pixels[starting..ending]
+      @pixels[starting..ending].each_slice(image.rows) do |row|
+        row.each_with_index do |color, index|
+          projection[index] += 1 if color == 0
+        end
       end
     end
 

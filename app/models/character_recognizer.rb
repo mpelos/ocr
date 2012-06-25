@@ -17,7 +17,7 @@ class CharacterRecognizer
       end
     end
 
-    densities.map { |density| density.first / density.last.to_f }
+    densities.compact.map { |density| density.first / density.last.to_f }
   end
 
   def recognize(options = {})
