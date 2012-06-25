@@ -29,7 +29,7 @@ class ImageFilter
     saturate if original?
 
     if saturated?
-      threshold_value = Magick::QuantumRange / 2
+      threshold_value = @pixels.inject(&:+) / @pixels.size
       object_pixels, background_pixels = [], []
 
       @pixels.each_slice(3) do |pixel|
