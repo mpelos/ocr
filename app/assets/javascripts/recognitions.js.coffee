@@ -35,5 +35,22 @@ jQuery ($) ->
       $(".binarized").hide()
       $(".control").removeClass("highlight")
       $(".previous").show().text("<< Binarizar").attr("class", "previous control binarize")
-      $(".next").hide().attr("class", "next control")
+      $(".next").show().text("Reconhecer").attr("class", "next control recognize")
+
+    $(".highlighted").animate
+      top: 0
+    , "fast", ->
+      $(".characters").hide()
+
     false
+
+  $(".recognize").live "click", ->
+    $(".characters").show()
+    $(".highlighted").animate
+      top: $(".characters").height() + 30
+
+    $(".control").removeClass("recognize")
+    $(".previous").show().text("<< Binarizar").attr("class", "previous control highlight")
+    $(".next").hide().attr("class", "next control")
+    false
+

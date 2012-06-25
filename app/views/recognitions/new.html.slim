@@ -12,6 +12,7 @@ p = flash[:notice]
         = image_tag "saturated", :class => :saturated
         = image_tag "binarized", :class => :binarized
         = image_tag "highlighted", :class => :highlighted
+        .characters = @characters
 
     - else
       = label_tag :'image[file]', :class => "image" do

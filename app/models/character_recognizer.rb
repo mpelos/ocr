@@ -22,7 +22,7 @@ class CharacterRecognizer
 
   def recognize(options = {})
     options.reverse_merge! :tolerance => 10
-    match_character = "Fuck"
+    match_character = "*"
 
     CharacterData.all.each do |character|
       index = -1
