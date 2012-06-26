@@ -17,7 +17,7 @@ class LearnController < ApplicationController
     else
       params[:characters].each do |character_params|
         character = CharacterData.new(character_params.last)
-        character.save
+        character.save if character.character.present?
       end
     end
 
