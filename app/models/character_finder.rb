@@ -14,7 +14,7 @@ class CharacterFinder
   def horizontal_projection
     projection = []
 
-    @pixels.each_slice(image.rows) do |row|
+    @pixels.each_slice(image.columns) do |row|
       projection << row.inject(0) { |count, color| color == 0 ? count + 1 : count }
     end
 
@@ -29,11 +29,9 @@ class CharacterFinder
     starting = options[:range].first * image.columns
     ending = options[:range].last * image.columns
 
-    if @pixels[starting..ending]
-      @pixels[starting..ending].each_slice(image.rows) do |row|
-        row.each_with_index do |color, index|
-          projection[index] += 1 if color == 0
-        end
+    @pixels[starting..ending].each_slice(image.columns) do |row|
+      row.each_with_index do |color, index|
+        projection[index] += 1 if color == 0
       end
     end
 
