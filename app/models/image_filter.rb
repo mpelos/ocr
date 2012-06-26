@@ -29,11 +29,11 @@ class ImageFilter
     saturate if original?
 
     if saturated?
-      threshold_value = @pixels.inject(&:+) / @pixels.size
+      median = @pixels.inject(&:+) / @pixels.size
       object_pixels, background_pixels = [], []
 
       @pixels.each_slice(3) do |pixel|
-        if pixel.first >= threshold_value
+        if pixel.first >= median
           background_pixels << pixel.first
         else
           object_pixels << pixel.first
@@ -47,10 +47,10 @@ class ImageFilter
       pixels = []
       @pixels.each_slice(3) do |pixel|
         pixel.each do |color|
-          if color < threshold_value
-            pixels << 0
+          if median > Magick::QuantumRange / 2
+            pixels << (color < threshold_value ? 0 : Magick::QuantumRange)
           else
-            pixels << Magick::QuantumRange
+            pixels << (color < threshold_value ? Magick::QuantumRange : 0)
           end
         end
       end
