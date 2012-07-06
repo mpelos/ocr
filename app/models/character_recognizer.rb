@@ -4,7 +4,7 @@ class CharacterRecognizer
   end
 
   def density(options = {})
-    options.reverse_merge! :quadrants_quantity => 16
+    options.reverse_merge! :quadrants_quantity => 9
     densities = []
 
     @matrix.each_with_index do |row, i|
